@@ -3,6 +3,14 @@ A CodeIgniter Framework Parse Library
 
 
 
+## Implementing
+- User Registration
+- User Logout
+- User Update
+
+
+
+
 
 ## Attention
 **Parse PHP SDK needs default session**, so if you use **CodeIgniter's Session Library I recommend you use PHP Native Session** and let **Parse PHP SDK** initialize it.
@@ -36,4 +44,75 @@ $newBook = $this->parse->newObject($className);
 ```php
 $newBook = $this->parse->newObject($className);
 $this->parse->save($newBook);
+```
+
+### Retrieve Object By Id
+```php
+$className = 'Book';
+$bookId = 'jsad71ASdj';
+$book = $this->parse->get($className, $bookId);
+```
+
+### Find Objects
+```php
+// find obects normally
+$className = 'Author';
+$equalToArray = array(
+	'active' => TRUE,
+);
+$ascending = 'name';
+$descending = 'null';
+$limit = 10;
+$skip = 5;
+$includeArray = array(
+	'country',
+);
+
+$authorsResultsArray = $this->parse->find($className, $equalToArray, $ascending, $desceding, $limit, $skip, $includeArray);
+
+// passing Parse Object in equalToArray
+$firstAuthor = $authorsResultsArray[0];
+$className = 'Book';
+$equalToArray = array(
+	'author' => $firstAuthor,
+);
+$ascending = 'publishDate';
+$descending = 'null';
+$limit = null;
+$skip = null;
+$includeArray = array();
+
+$booksResultsArray = $this->parse->find($className, $equalToArray, $ascending, $desceding, $limit, $skip, $includeArray);
+```
+
+### First Object
+- Like _find()_ but without _$limit_ param.
+```php
+
+// (...)
+
+$firstAuthor = $authorsResultsArray[0];
+$className = 'Book';
+$equalToArray = array(
+	'author' => $firstAuthor,
+);
+$ascending = 'publishDate';
+$descending = 'null';
+$skip = null;
+$includeArray = array();
+
+$firstBook = $this->parse->first($className, $equalToArray, $ascending, $desceding, $skip, $includeArray);
+```
+
+### User Login
+```php
+$username = 'example';
+$password = 'example';
+
+$user = $this->parse->userLogin($username, $password);
+```
+
+### Get Current User
+```php
+$user = $this->parse->getCurrentUser();
 ```
