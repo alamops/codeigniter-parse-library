@@ -32,7 +32,7 @@ $newBook = $this->parse->newObject($className);
 ```
 - This retrieves a native Parse Object. So you can use normally how you know.
 
-### Sabe Object
+### Save Object
 ```php
 $newBook = $this->parse->newObject($className);
 $this->parse->save($newBook);
