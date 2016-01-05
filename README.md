@@ -19,3 +19,21 @@ _To use Native Session Library with Parse Library in CodeIgniter's Autoload Conf
 2. Create a folder named **parse** on project main folder.
 3. Put **Parse PHP SDK** files into **parse** folder.
 4. (_Optional_) If you want to use **Parse Library** in all files or many files, I recommend you add it on **CodeIgniter's Autoload Configuration**.
+
+
+
+
+## How to use
+
+### New Object
+```php
+$className = 'Book';
+$newBook = $this->parse->newObject($className);
+```
+- This retrieves a native Parse Object. So you can use normally how you know.
+
+### Sabe Object
+```php
+$newBook = $this->parse->newObject($className);
+$this->parse->save($newBook);
+```
