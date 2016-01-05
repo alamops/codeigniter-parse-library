@@ -1,4 +1,15 @@
 <?php
+
+/**
+ * @author: Alamo Pereira Saravali
+ * @email: alamo.sarvali@gmail.com
+ * @github: alamops
+ * @facebook: fb.me/alamosaravali
+ * @twitter: @alamosaravali
+ * @instagram: @alamoweb
+ * @website: alamoweb.com.br
+ */
+
 defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 
 require_once "./parse/autoload.php";
