@@ -7,6 +7,7 @@ A CodeIgniter Framework Parse Library
 - User Registration
 - User Logout
 - User Update
+- More Error details
 
 
 
