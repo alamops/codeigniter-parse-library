@@ -34,9 +34,9 @@ class Parse {
 	private $lastError = null;
 	
 	public function __construct() {
-		$appId = '*************';
-		$restApiKey = '*************';
-		$masterKey = '*************';
+		$appId = '**************';
+		$restApiKey = '**************';
+		$masterKey = '**************';
 		
 		// initialize parse
 		ParseClient::initialize ( $appId, $restApiKey, $masterKey );
@@ -81,7 +81,7 @@ class Parse {
 	}
 	
 	// FIND OBJECTS
-	public function find($className, $equalToArray = array(), $ascending = null, $desceding = null, $limit = null, $skip = null, $includeArray = array()) {
+	public function find($className, $equalToArray = array(), $ascending = null, $descending = null, $limit = null, $skip = null, $includeArray = array()) {
 		$query = new ParseQuery ( $className );
 		
 		if ($equalToArray) {
@@ -94,7 +94,7 @@ class Parse {
 			$query->ascending ( $ascending );
 		}
 		
-		if ($desceding) {
+		if ($descending) {
 			$query->descending ( $descending );
 		}
 		
@@ -116,7 +116,7 @@ class Parse {
 	}
 	
 	// FIRST OBJECT
-	public function first($className, $equalToArray = array(), $ascending = null, $desceding = null, $skip = null, $includeArray = array()) {
+	public function first($className, $equalToArray = array(), $ascending = null, $descending = null, $skip = null, $includeArray = array()) {
 		$query = new ParseQuery ( $className );
 		
 		if ($equalToArray) {
@@ -129,7 +129,7 @@ class Parse {
 			$query->ascending ( $ascending );
 		}
 		
-		if ($desceding) {
+		if ($descending) {
 			$query->descending ( $descending );
 		}
 		
@@ -159,6 +159,40 @@ class Parse {
 		} else {
 			$user = $user->fetch ( true );
 			return $user;
+		}
+	}
+	
+	// USER SIGN UP
+	public function userSignUp ($params) {
+		// creat new ParseUser object
+		$user = new ParseUser();
+		
+		// set params
+		foreach($params as $name => $data) {
+			switch ($data['type']) {
+				case 'array':
+					$user->setArray($name, $data['value']);
+					break;
+					
+				default:
+					$user->set($name, $data['value']);
+					break;
+			}
+		}
+		
+		try {
+			$user->signUp();
+			
+			return array(
+					'status' => '1',
+					'data' => $user,
+			);
+		}
+		catch(ParseException $e) {
+			return array(
+					'status' => '0',
+					'data' => $e->getMessage(),
+			);
 		}
 	}
 	
@@ -194,5 +228,10 @@ class Parse {
 				);
 			}
 		}
+	}
+	
+	// USER LOGOUT
+	public function userLogOut () {
+		ParseUser::logOut();
 	}
 }
